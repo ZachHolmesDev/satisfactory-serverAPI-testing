@@ -1,0 +1,23 @@
+meta {
+  name: sf-server testing
+  type: http
+  seq: 2
+}
+
+post {
+  url: https://192.168.0.207:7777/api/v1
+  body: json
+  auth: bearer
+}
+
+headers {
+  Content-Type: application/json
+}
+
+auth:bearer {
+  token: ewoJInBsIjogIkFQSVRva2VuIgp9.E8C3A408652A4AF0C80489FCAEC15776C98B13A235ECD8BB0D9039C397FCA721E483130DA094AEC5C9156CA6DC90BA6B92AEAD0FF04A0737E4EBD2EC644F6392
+}
+
+body:json {
+  {"function": "QueryServerState", "data": {}}
+}

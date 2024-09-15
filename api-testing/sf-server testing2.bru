@@ -1,0 +1,27 @@
+meta {
+  name: sf-server testing2
+  type: http
+  seq: 3
+}
+
+post {
+  url: https://192.168.0.207:7777/api/v1
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "function": "PasswordLogin", 
+    "data": {
+      "MinimumPrivilegeLevel": "admin",
+      "Password": "moon"
+    }
+  }
+  
+  
+}
