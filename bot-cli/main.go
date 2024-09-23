@@ -21,12 +21,21 @@ func sendRequest() {
 	jsonData :=
 		`
 {
-  "function": "HealthCheck",
-  "data": {
-    "ClientCustomData": ""
-  }
+  "function": "QueryServerState",
+  "data": {}
 }
 		`
+		// 	jsonData :=
+		// 		`
+		// {
+		//   "function": "HealthCheck",
+		//   "data": {
+		//     "ClientCustomData": ""
+		//   }
+		// }
+		// 		`
+
+	data
 	// make the request
 	resp, err := client.Post(
 		url,
