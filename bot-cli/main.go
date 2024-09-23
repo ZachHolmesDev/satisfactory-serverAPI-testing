@@ -1,8 +1,12 @@
 package main
 
 import (
+	"bytes"
 	"crypto/tls"
+	"encoding/json"
 	"fmt"
+	"io"
+	"log"
 	"net/http"
 )
 
@@ -13,18 +17,40 @@ func sendRequest() {
 		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
 	}
 	client := http.Client{Transport: transport}
-
-	resp, err := client.Get(url)
+	// reader := io.reader
+	jsonData :=
+		`
+{
+  "function": "HealthCheck",
+  "data": {
+    "ClientCustomData": ""
+  }
+}
+		`
+	// make the request
+	resp, err := client.Post(
+		url,
+		"application/json;charset=utf-8",
+		bytes.NewBuffer([]byte(jsonData)),
+	)
 	if err != nil {
 		fmt.Println(err)
 	}
+	defer resp.Body.Close()
 
-	// response, err := http.Get(url)
-	// if err != nil {
-	// 	fmt.Println("ERROR: ", err)
-	// }
+	// read the respBody of response into respBody var
+	respBody, err := io.ReadAll(resp.Body)
+	if err != nil {
+		log.Fatal(err)
+	}
 
-	fmt.Printf("%v", resp)
+	var respBodyJson bytes.Buffer
+	err = json.Indent(&respBodyJson, respBody, "", "  ")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Printf("%v\n", respBodyJson.String())
 
 }
 
