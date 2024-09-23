@@ -8,6 +8,9 @@ import (
 	"io"
 	"log"
 	"net/http"
+	"os"
+
+	"github.com/joho/godotenv"
 )
 
 func sendRequest() {
@@ -35,7 +38,7 @@ func sendRequest() {
 		// }
 		// 		`
 
-	data
+	// data
 	// make the request
 	resp, err := client.Post(
 		url,
@@ -63,33 +66,16 @@ func sendRequest() {
 
 }
 
-// 	url := "https://192.168.0.207:7777/api/v1/"
-
-// 	response, err := http.Get(url)
-// 	if err != nil {
-// 		fmt.Println("ERROR: ", err)
-// 	}
-
-// 	fmt.Printf("%v", response)
-
-// }
-
-// func sendRequest(fucntion string, dataInput string) {
-// 	http.Get("")
-// }
-
-// func getInput() {
-// 	var functionInput string
-// 	var dataInput string
-
-// 	fmt.Println("give the function:")
-// 	fmt.Scanln(&functionInput)
-// 	fmt.Println("give the data:")
-// 	fmt.Scanln(&dataInput)
-// }
-
 func main() {
 	print("-- start --\n")
+
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Error loading .env file:", err)
+	}
+
+	token := os.Getenv("SF_SERVER_TOKEN")
+	fmt.Printf("env var is %v\n", token)
 	// getInput()
 	sendRequest()
 	print("-- end --\n")
